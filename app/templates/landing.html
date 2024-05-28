@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Sentiment Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: url('/static/sentiment-analysis-header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header img {
+            height: 100px; /* Adjust the height of the logo as needed */
+        }
+
+        .main-text {
+            font-family: 'Pacifico', cursive; /* Handwriting font */
+            font-size: 2.1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+        }
+
+        .score-box {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-tables {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .score-table {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 48%; /* 48% to leave some space for margin */
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-table h2 {
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin: 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .score-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .score-table th,
+        .score-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .score-table th {
+            background-color: #f4f4f4;
+        }
+
+        .score-table td {
+            background-color: #fafafa;
+        }
+
+        .score-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .example_a {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Link to Google Fonts for Pacifico font -->
+</head>
+
+<body>
+    <div class="header">
+        <img src="/static/Logo_UEH_xanh.png" alt="UEH Logo">
+    </div>
+    <div class="main-text">
+        Understand the sentiment behind the words 🌱🌱🌱
+    </div>
+    <div class="container">
+        <h1>Welcome To Sentiment Analyzer Using NLTK and Transformer</h1>
+        <form method="POST">
+            <textarea name="text1" placeholder="Say Something: ...." rows="7" cols="80">{{ text1 if text1 }}</textarea><br><br>
+            <input class="example_a" type="submit" value="Predict">
+        </form>        
+        {% if results %}
+        <div class="score-tables">
+            <div class="score-table">
+                <h2>Vader Sentiment</h2>
+                <h3>This sentence is 
+                    {% if results['maxvadersentiment'] == 'pos' %}
+                        {{'%.2f' %(results['pos_vader'] * 100) }}% Positive
+                    {% elif results['maxvadersentiment'] == 'neu' %}
+                        {{'%.2f' %(results['neu_vader'] * 100) }}% Neutral
+                    {% else %}
+                        {{'%.2f' %(results['neg_vader'] * 100) }}% Negative
+                    {% endif %}
+                </h3>                
+                <table>
+                    <tr>
+                        <th>SENTIMENT METRIC</th>
+                        <th>SCORE</th>
+                    </tr>
+                    <tr>
+                        <td>Positive</td>
+                        <td>{{results['pos_vader']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Neutral</td>
+                        <td>{{results['neu_vader']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Negative</td>
+                        <td>{{results['neg_vader']}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="score-table">
+                <h2>Transformer Sentiment</h2>
+                <h3>This sentence is 
+                    {% if results['maxroberta'] == 'positive' %}
+                        {{ '%.2f' % (results['pos_roberta'] * 100) }}% Positive
+                    {% elif results['maxroberta'] == 'neutral' %}
+                        {{ '%.2f' % (results['neu_roberta'] * 100) }}% Neutral
+                    {% else %}
+                        {{ '%.2f' % (results['neg_roberta'] * 100) }}% Negative
+                    {% endif %}
+                </h3>               
+                <table>
+                    <tr>
+                        <th>SENTIMENT METRIC</th>
+                        <th>SCORE</th>
+                    </tr>
+                    <tr>
+                        <td>Positive</td>
+                        <td>{{results['pos_roberta']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Neutral</td>
+                        <td>{{results['neu_roberta']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Negative</td>
+                        <td>{{results['neg_roberta']}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="bg-gray-900 text-white py-6 mt-8">
+        <div class="container mx-auto text-center">
+            &copy; 05/2024 Nhom 8 UEH. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
