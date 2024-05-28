@@ -27,7 +27,7 @@ docker-compose up --build
 use (if you want to run container in background)
 ```bash
 docker-compose up -d --build
-``
+```
 4. Run the app: open your web browser (e.g. Chrome, Edge...) with command
 ```bash
 http://localhost:5000
