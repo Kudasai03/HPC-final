@@ -1,14 +1,9 @@
 # Sentiment Analyzer Web App
 
-A flask (Python) Web Interface for sentiment analysis using NLP techniques.
-
-#### Basic Features
-* Remove stop words 
-* Pre-process text (remove punctuation, lower case)
-* Stemming of words
+A flask (Python) Web Interface for sentiment analysis.
 
 #### Sentiment Analysis
-* Shows how much text content is positive
+* Displays the sentiment of the text.
 
 ### The Architecture
 ![image](https://github.com/Kudasai03/HPC-final/assets/114086290/15a7c4f2-00b7-494b-b0e6-cd99de7b8dd1)
