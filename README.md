@@ -11,9 +11,7 @@ A flask (Python) Web Interface for sentiment analysis using NLP techniques.
 * Shows how much text content is positive
 
 ### The Architecture
-The machine learning model (built with  `scikit-learn`, and `NLTK Analyzer`) is deployable as a Python package and is placed behind an API written in `Flask`. I've built a simple front end using `HTML, CSS` to make the UI of Web App. I use `Docker` containers to isolate the API and Front End applications and use `Docker Compose` to deploy the whole system.
-
-![image](https://github.com/Kudasai03/HPC-final/assets/114086290/be67096f-4427-418f-a74e-091a03e7313d)
+![image](https://github.com/Kudasai03/HPC-final/assets/114086290/15a7c4f2-00b7-494b-b0e6-cd99de7b8dd1)
 
 # usage
 
@@ -31,7 +29,10 @@ cd HPC-final/
 ```bash
 docker-compose up --build
 ```
-
+use (if you want to run container in background)
+```bash
+docker-compose up -d --build
+``
 4. Run the app: open your web browser (e.g. Chrome, Edge...) with command
 ```bash
 http://localhost:5000
