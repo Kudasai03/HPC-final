@@ -9,6 +9,10 @@ A flask (Python) Web Interface for sentiment analysis.
 ![image](https://github.com/Kudasai03/HPC-final/assets/114086290/15a7c4f2-00b7-494b-b0e6-cd99de7b8dd1)
 
 # usage
+![image](https://github.com/Kudasai03/HPC-final/assets/114086290/bc7d9546-3a84-4a63-ba3b-5dadc558fc36)
+
+# Demo
+![image](https://github.com/Kudasai03/HPC-final/assets/114086290/b831055a-f249-484e-929c-b68c175a2753)
 
 1. First, clone this repository and open a terminal.
 ```bash
